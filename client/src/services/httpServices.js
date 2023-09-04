@@ -2,7 +2,7 @@ import axios from "axios";
 
 let AxiosCreator;
 
-export const nodeApiUrl = "http://13.233.10.171/api/";
+export const nodeApiUrl = "http://localhost:5001/api/";
 
 if (typeof window !== "undefined") {
   AxiosCreator = axios.create({
