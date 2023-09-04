@@ -9,6 +9,9 @@
 
     # production
     /build
+    client/dist/
+	nginx_signing.key
+
 
     # misc
     # .DS_Store
