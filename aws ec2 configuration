@@ -1,0 +1,105 @@
+
+
+- Connect with server using ssh (https://stackabuse.com/how-to-fix-warning-unprotected-private-key-file-on-mac-and-linux/)
+
+	- Give permisson .pem file to execute
+		- sudo chmod 600 /path/to/my/key.pem
+		- sudo chmod 755 ~/.ssh
+
+	    ssh -i /path/key-pair-name.pem instance-user-name@instance-IPv6-address
+	    -- ssh -i web-app.pem ubuntu@13.233.10.171
+
+
+	- : Create new derectory
+	- : Clone app using git
+	- : Install Node JS -- stable version
+
+	   - Step to install NVM 
+
+	   		1. curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+	   		2. source ~/.bashrc
+	   		3.Install Node.js
+
+				nvm install <SPECIFIC_NODE_VERSION>
+
+			4.Install Node.js latest version
+
+				nvm install node
+
+			5. To use any specific version of Node.js for your code
+
+				nvm use <SPECIFIC_NODE_VERSION>
+
+			6. To list installed Node.js versions locally on your machine, use
+
+				nvm ls
+
+	- : Install NginX on EC2 Ubuntu (https://linuxhint.com/install-nginx-ec2-ubuntu/)
+
+			1. sudo apt update
+			2. sudo wget http://nginx.org/keys/nginx_signing.key
+			3. sudo apt-key add nginx_signing.key
+			4. sudo apt update
+			5. sudo apt install nginx
+			6. configure nginx default file
+
+				-- make sure your build or dist file present on given path (like -  root /var/www/dist)
+				-- use winScp for puting build  
+
+				server {
+				        listen 80 default_server;
+				        root /var/www/dist;
+				        index index.html index.htm;
+				        server_name localhost;
+				        location / {
+				                try_files $uri /index.html;
+				        }
+
+				        location /api {
+				                proxy_pass http://localhost:5001;
+				                proxy_redirect http://localhost:5001 https://localhost:5001;
+				        }
+				}
+
+			7. install pm2 and start server using pm2 (https://medium.com/@ramavathvinayak/deploy-a-node-js-application-on-aws-ec2-with-nginx-as-a-reverse-proxy-e8f41f1edaef)
+
+				- pm2 start server.js
+
+
+
+
+
+
+
+
+---- Extra information they will help to reolve error
+
+
+
+
+Converting .pem Key Into .ppk Key (for ubuntu)
+
+(https://www.baeldung.com/linux/pem-ppk-keys#1-installingputtygen)
+
+
+1. Installing puttygen
+	
+	>> sudo apt-get update
+	>> sudo apt-get install -y putty-tools
+	>> puttygen --version
+
+2.  Converting .pem File to .ppk
+
+	To convert a .pem key file into .ppk format, we can use the -O option with the private or public argument, depending on the type of keys we want to convert.
+
+	For example, let’s convert an existing id_rsa.pem into its corresponding .ppk file:
+
+	  >> puttygen id_rsa.pem -O private -o id_rsa_private.ppk
+
+	The command above extracts the private key from id_rsa.pem and saves it in the .ppk format in the id_rsa_private.ppk file.
+
+	Conversely, to obtain the public key, we use the public argument on the -O option:
+
+	  >> puttygen id_rsa.pem -O public -o id_rsa_public.ppk
+
+
